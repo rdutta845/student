@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  	
+	
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+    <!-- Ionicons -->
+    <!-- Theme style -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- jvectormap -->
+  <!-- Date Picker -->
+  <style >
+  	body{
+  		background-image: url(uni.jpg);
+  		background-size: cover;
+  	}
+  	p{
+  		color: rgb(143, 49,49);
+  		font-size: 25px;
+  		background-color: rgba(255,255,255,.42);
+  		width: 150px;
+  	}
+  </style>
+  </head>
+<body >
+
+ <div class="row " >
+<center><h1 style="background-color: lightblue">Student Data</h1></center>
+
+
+ </div>
+
+
+<div class="row" style="padding: 30px" class="form-control">
+
+
+<div class="col-md-6 col-sm-12" style="padding: 20px">
+
+<b><p> First Name:</p></b><br><input type="text" id="i1" value="<%=student.name.first%>" class="form-control" style="width:350px;text-transform: uppercase;">
+<b><p>Registration:</p></b><br><input type="text" id="i2" value="<%=student.regNo%>" class="form-control" style="width:350px;" onkeypress="return event.charCode >=48 && event.charCode<= 57" maxlength="10">
+<b><p>Last Name:</p></b><br><input type="text" id="i3" class="form-control" value="<%=student.name.last %>" style="width:350px;text-transform: capitalize;">
+<b><p>State:</p></b>
+<select id="i4" style="width:350px" value="<%= student.address.state %>" class="form-control">
+	<option selected disabled>State<State</option>
+</select>
+
+
+</div>
+
+<div class="col-md-6 col-sm-12">
+<br>
+<b><p>Roll No.:</p></b><br><input type="text" id="j1" style="width:350px" value="<%=student.rollNo%>" onkeypress="return event.charCode >=48 && event.charCode<= 57" class="form-control" maxlength="5" required="Roll No.">
+<b><p>College:</p></b><br><input type="text" id="j2" value="<%= student.CollegeName %>" style="width:350px;text-transform:capitalize;" class="form-control" required="College"><b></b>
+<b><p>City:</p></b><br><input type="text" id="j3" style="width:350px;text-transform:capitalize; " value="<%= student.address.city %>" class="form-control" required="City">
+
+<b><p>Country:</p></b>
+<select id="j4"    style="width:350px" value="<%=student.address.country %>" class="form-control"> 
+<option>Country</option>
+<option>india</option>
+<option>nepal</option>
+<option>bhutan</option>
+<option>sri lanka</option>
+</select>
+
+</div>
+</div>
+<br><br>
+
+<center>
+<div class="btn btn-group">
+
+<button type="button"  id="add-btn" class="btn btn-success">Add</button>
+</center>
+
+
+<!--including script file -->
+
+
+<script>
+var objArr=$("#j4");
+var stdObj=[];
+var str;
+/*
+alert(objArr);
+alert(objArr[0].val());
+*/
+
+/*var stArr=["india-st-1","india-st-2"];
+
+if(objArr[0].val()=="india"){
+	$("#i4").innerHTML=stArr;
+	var name=$("#i1").val();
+}*/
+
+
+
+
+$("#j4").on("change",function(){
+
+
+	var dd1=$("#j4");
+	var selval=dd1.val();
+	alert(selval);
+	
+	if(selval=="india"){
+		var select=$("#i4");
+		//alert(select.val());
+		select.html("<option>india-st-1</option><option>india-st-2</option>");
+	
+	}
+	
+	if(selval=="nepal"){
+		var select=$("#i4");
+		select.html("<option>nepal-st-1</option><option>nepal-st-2</option>");
+	}
+
+	if(selval=="bhutan"){
+		var select=$("#i4");
+	
+		select.html("<option>bhutan-st-1</option><option>bhutan-st-2</option>");
+	}
+
+	if(selval=="sri lanka"){
+		var select=$("#i4");
+	
+		select.html("<option>srilanka-st-1</option><option>srilanka-st-2</option>");	
+	}/*
+	if(selval=="Country"){
+		var select=$("#i4");
+		for(i=0;i<select.length;i++)
+			select.val("");
+		select.val("state");
+	}*/
+})
+
+
+
+
+$('#add-btn').click(function(e){
+    //console.log($('#i1').val());
+   	e.preventDefault();
+    var std = $("#j1").val();
+
+    console.log(std);
+   $.ajax({                    
+  url: '/student/add',     
+  type: 'put',
+
+  data : std,
+                     
+  success: function(result)      
+  {
+  	
+    console.log(result);
+  } 
+});
+})
+
+
+
+function fun2(str,val){
+
+
+
+
+if(str.length!=val || isNaN(str)){
+		return true;
+	}
+return false;
+
+}
+
+
+
+
+</script>
+
+
+</html>
