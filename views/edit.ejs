@@ -42,7 +42,7 @@
 <b><p>Registration:</p></b><br><input type="text" id="i2" value="<%=student.regNo%>" class="form-control" style="width:350px;" onkeypress="return event.charCode >=48 && event.charCode<= 57" maxlength="10">
 <b><p>Last Name:</p></b><br><input type="text" id="i3" class="form-control" value="<%=student.name.last %>" style="width:350px;text-transform: capitalize;">
 <b><p>State:</p></b>
-<select id="i4" style="width:350px" value="<%= student.address.state %>" class="form-control">
+<select id="i4" style="width:350px"  class="form-control">
 	<option selected disabled>State<State</option>
 </select>
 
@@ -56,9 +56,9 @@
 <b><p>City:</p></b><br><input type="text" id="j3" style="width:350px;text-transform:capitalize; " value="<%= student.address.city %>" class="form-control" required="City">
 
 <b><p>Country:</p></b>
-<select id="j4"    style="width:350px" value="<%=student.address.country %>" class="form-control"> 
-<option>Country</option>
-<option>india</option>
+<select id="j4"    style="width:350px" class="form-control"> 
+<option >Country</option>
+<option >india</option>
 <option>nepal</option>
 <option>bhutan</option>
 <option>sri lanka</option>
@@ -141,23 +141,45 @@ $("#j4").on("change",function(){
 $('#add-btn').click(function(e){
     //console.log($('#i1').val());
    	e.preventDefault();
-    var std = $("#j1").val();
+    var std = '<%=student._id%>';
+
+
+    var s_data={
+    	regNo : $('#i2').val(),
+    	rollNo : $('#j1').val(),
+    	name :{
+
+    	 first: $('#i1').val(),
+    	 last : $('#i3').val(),
+    	},
+    	CollegeName : $('#j2').val(),
+    	address : {
+    	
+    	
+    	city : $('#j3').val(),
+    	country : $('#j4').val(),
+    	state  : $('#i4').val(),
+    	
+    }
+    };
+
 
     console.log(std);
    $.ajax({                    
-  url: '/student/add',     
+  url: '/student/edit/'+std,     
   type: 'put',
 
-  data : std,
+  data : s_data,
                      
   success: function(result)      
   {
+  	window.location.href="/student/list";
   	
     console.log(result);
   } 
 });
 })
-
+ 
 
 
 function fun2(str,val){

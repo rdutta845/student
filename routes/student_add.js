@@ -53,13 +53,14 @@ router.get('/edit/:studentid', function(req, res, next) {
   });
 });
 
-router.put('/:studentid', function(req, res, next) {
+
+router.put('/edit/:studentid', function(req, res, next) {
   
-  	console.log(req.body.data);
+  	
   	console.log(req.params.studentid);
-	Student.update({rollNo : req.body.data }).exec(function(err,student){
-	
-		return res.json(student);		
+  	console.log(req.body);
+	Student.findOneAndUpdate({_id : req.params.studentid}, req.body, function (err, Student) {
+  	res.json(Student);
 	});
   
 });
@@ -71,9 +72,9 @@ router.delete('/:studentid', function(req, res, next) {
 	Student.remove({_id : req.params.studentid }).exec(function(err,student){
 	
 		return res.json(student);		
-	});
+		});
   
-});
+	});
 
   
   	
