@@ -58,10 +58,10 @@
 <b><p>Country:</p></b>
 <select id="j4"    style="width:350px" class="form-control"> 
 <option >Country</option>
-<option >india</option>
-<option>nepal</option>
-<option>bhutan</option>
-<option>sri lanka</option>
+<option <% if (student.address.country === 'india'){ %> selected <% } %> >india</option>
+<option <% if (student.address.country === 'nepal'){ %> selected <% } %>>nepal</option>
+<option <% if (student.address.country === 'bhutan'){ %> selected <% } %>>bhutan</option>
+<option <% if (student.address.country === 'sri lanka'){ %> selected <% } %>>sri lanka</option>
 </select>
 
 </div>
